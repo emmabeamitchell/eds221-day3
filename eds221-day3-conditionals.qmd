@@ -318,7 +318,91 @@ for (i in seq_along(tigers)) {
 }
 
 
+```
+
+
+
+```{r}
+
+
+mean_mtcars <- vector(mode = "numeric", length = ncol(mtcars))
+#calculate mean for every column
+# write outside for loop first
+
+#mean_value <- mean(mtcars[[1]], na.rm = TRUE)
+#mean_mtcars [1] <- mean_value
+
+
+#for loops
+
+for (i in 1:ncol(mtcars)){
+  mean_value <- mean(mtcars[[i]], na.rm = TRUE)
+  mean_mtcars [i] <- mean_value
+   
+}
+
+mean_mtcars
+
 
 
 ```
+
+
+
+
+
+```{r}
+
+
+library(palmerpenguins)
+
+if(is.numeric(penguins[[3]])){
+  penguin_median <- median(penguins[[3]], na.rm = TRUE)
+} else {
+  print("non-numeric column")
+}
+
+for(i in seq_along(penguins)) {
+  if (is.numeric(penguins[[i]])) {
+  penguin_median <- median(penguins[[i]], na.rm = TRUE)
+  print(penguin_median)
+} else {
+  print("non-numeric column")
+}
+}
+
+
+```
+
+
+```{r}
+#use apply to find mean ----
+apply(X = mtcars, MARGIN = 2, FUN = mean)
+#2 in margin means columns, 1 means rows
+
+
+
+```
+
+```{r}
+
+library(tidyverse)
+
+penguins %>%
+  group_by(species) |>
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+```
+
+```{r}
+#use purr to do the same thing as apply
+library(purrr)
+
+map(.x = mtcars, .f = mean) #returns a list
+map_df(.x = mtcars, .f = mean) #returns a data frame
+
+
+```
+
+
 
